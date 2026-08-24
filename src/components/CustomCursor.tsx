@@ -7,11 +7,19 @@ const TRAIL = [
   { width: 7, height: 2.8, color: 'rgba(201, 96, 74, 0.13)', ease: 0.16 },
 ];
 
+const BLOB_RADII = [
+  '46% 54% 38% 62% / 55% 42% 58% 45%',
+  '58% 42% 62% 38% / 40% 60% 44% 56%',
+  '40% 60% 50% 50% / 62% 38% 52% 48%',
+  '52% 48% 44% 56% / 45% 55% 62% 38%',
+];
+
 export default function CustomCursor() {
   const brushRef = useRef<HTMLDivElement>(null);
   const trailContainerRef = useRef<HTMLDivElement>(null);
   const trailRefs = useRef<(HTMLDivElement | null)[]>([]);
   const pos = useRef({ x: 0, y: 0 });
+  const lastPos = useRef({ x: 0, y: 0 });
   const target = useRef({ x: 0, y: 0 });
   const angle = useRef(-25);
   const trailPos = useRef(TRAIL.map(() => ({ x: 0, y: 0 })));
@@ -66,13 +74,20 @@ export default function CustomCursor() {
       pos.current.y += (target.current.y - pos.current.y) * 0.38;
       brush.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translate(-2px, -11px) rotate(${angle.current}deg)`;
 
+      const speed = Math.hypot(pos.current.x - lastPos.current.x, pos.current.y - lastPos.current.y);
+      lastPos.current = { x: pos.current.x, y: pos.current.y };
+      const speedFactor = Math.min(1, speed / 22);
+      const wetness = 1 - speedFactor;
+
       let prev = { x: pos.current.x, y: pos.current.y };
       trailPos.current.forEach((t, i) => {
         t.x += (prev.x - t.x) * TRAIL[i].ease;
         t.y += (prev.y - t.y) * TRAIL[i].ease;
         const el = trailRefs.current[i];
         if (el) {
-          el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0) translate(-50%, -50%) rotate(${angle.current + 90}deg)`;
+          const scale = 0.7 + 0.5 * wetness;
+          el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0) translate(-50%, -50%) rotate(${angle.current + 90}deg) scale(${scale})`;
+          el.style.opacity = String(0.5 + 0.5 * wetness);
         }
         prev = t;
       });
@@ -106,8 +121,8 @@ export default function CustomCursor() {
             ref={(el) => {
               trailRefs.current[i] = el;
             }}
-            className="absolute left-0 top-0 rounded-sm"
-            style={{ width: t.width, height: t.height, backgroundColor: t.color }}
+            className="absolute left-0 top-0"
+            style={{ width: t.width, height: t.height, backgroundColor: t.color, borderRadius: BLOB_RADII[i] }}
           />
         ))}
       </div>
