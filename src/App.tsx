@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import MobileStickyCTA from '@/components/MobileStickyCTA';
+import CustomCursor from '@/components/CustomCursor';
 import { useScrollToTop } from '@/hooks/useScrollToTop';
 import HomePage from '@/pages/HomePage';
 import ServicesPage from '@/pages/ServicesPage';
@@ -21,6 +22,7 @@ function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-cream-50">
+      <CustomCursor />
       <Navbar />
       <main className="flex-1 pb-16 lg:pb-0">
         <Routes>

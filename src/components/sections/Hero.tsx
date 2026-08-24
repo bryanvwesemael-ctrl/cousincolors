@@ -1,19 +1,67 @@
+import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Phone } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { COMPANY } from '@/lib/data';
 import { trackEvent } from '@/lib/analytics';
+import { brushClipPath } from '@/lib/brushClip';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const HERO_IMAGE =
+  'https://images.pexels.com/photos/8146323/pexels-photo-8146323.jpeg?auto=compress&cs=tinysrgb&w=1920';
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const colorLayerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const colorLayer = colorLayerRef.current;
+    if (!section || !colorLayer) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (prefersReduced || isMobile) return;
+
+    colorLayer.style.clipPath = brushClipPath(1);
+
+    const ctx = gsap.context(() => {
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: '65% top',
+        scrub: 0.6,
+        onUpdate: (self) => {
+          colorLayer.style.clipPath = brushClipPath(1 - self.progress);
+        },
+      });
+      return () => trigger.kill();
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative min-h-[100svh] overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[100svh] overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0">
         <img
-          src="https://images.pexels.com/photos/8146323/pexels-photo-8146323.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          src={HERO_IMAGE}
           alt="Sfeervolle, pas geschilderde woonkamer met natuurlijk licht"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover grayscale"
           fetchPriority="high"
         />
+        <div ref={colorLayerRef} className="absolute inset-0 overflow-hidden">
+          <img
+            src={HERO_IMAGE}
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950/50 via-ink-950/30 to-ink-950/60" />
       </div>
 

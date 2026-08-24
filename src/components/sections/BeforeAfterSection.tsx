@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
-import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import BrushReveal from '@/components/BrushReveal';
 import { useReveal } from '@/hooks/useReveal';
 
 export default function BeforeAfterSection() {
@@ -20,8 +20,8 @@ export default function BeforeAfterSection() {
               Zie het verschil
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-cream-200/80">
-              Sleep de schuifbalk en ontdek wat professionele schilderwerken doen voor
-              een ruimte. Een voorbeeld uit onze projecten.
+              Scroll verder en zie hoe de kwast de ruimte verft. Een voorbeeld uit onze
+              projecten.
             </p>
             <div className="mt-6 flex items-center gap-3 text-sm text-cream-200/70">
               <span className="rounded-full bg-cream-50/10 px-3 py-1 font-medium">{project.title}</span>
@@ -33,7 +33,7 @@ export default function BeforeAfterSection() {
             </Link>
           </div>
           <div className={`transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BeforeAfterSlider
+            <BrushReveal
               beforeImage={project.beforeImage}
               afterImage={project.afterImage}
               beforeAlt={project.beforeAlt}

@@ -8,7 +8,7 @@ export default function ProjectCard({ project, index = 0 }: { project: ProjectDa
   return (
     <article
       ref={ref}
-      className={`group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-ink-100 transition-all duration-500 hover:shadow-xl hover:shadow-ink-900/5 ${
+      className={`group paint-hover overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-ink-100 transition-all duration-500 hover:shadow-xl hover:shadow-ink-900/5 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}

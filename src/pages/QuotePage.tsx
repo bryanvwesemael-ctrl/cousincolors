@@ -1,6 +1,7 @@
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import QuoteForm from '@/components/QuoteForm';
+import ColorMoodPicker from '@/components/ColorMoodPicker';
 import { useReveal } from '@/hooks/useReveal';
 
 export default function QuotePage() {
@@ -31,6 +32,9 @@ export default function QuotePage() {
       <section className="bg-cream-50 py-12 lg:py-16">
         <div className="container-page">
           <div ref={ref} className={`mx-auto max-w-2xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <div className="mb-8">
+              <ColorMoodPicker />
+            </div>
             <QuoteForm />
           </div>
         </div>
