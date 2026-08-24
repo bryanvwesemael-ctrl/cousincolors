@@ -16,12 +16,14 @@ export default function HomePage() {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'HomeAndConstructionBusiness',
     name: COMPANY.name,
     description: COMPANY.description,
     url: COMPANY.url,
     email: COMPANY.email,
-    areaServed: COMPANY.region,
+    image: 'https://images.pexels.com/photos/8146323/pexels-photo-8146323.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    priceRange: '€€',
+    areaServed: COMPANY.regionCities,
     knowsAbout: ['Binnenschilderwerken', 'Buitenschilderwerken', 'Behangwerken', 'Schuren en lakken'],
   };
 
