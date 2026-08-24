@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
 const TRAIL = [
-  { size: 9, color: 'rgba(176, 74, 58, 0.55)', ease: 0.32 },
-  { size: 7, color: 'rgba(176, 74, 58, 0.4)', ease: 0.24 },
-  { size: 6, color: 'rgba(201, 96, 74, 0.3)', ease: 0.18 },
-  { size: 4, color: 'rgba(201, 96, 74, 0.18)', ease: 0.14 },
+  { width: 15, height: 4.5, color: 'rgba(176, 74, 58, 0.5)', ease: 0.32 },
+  { width: 12, height: 3.5, color: 'rgba(176, 74, 58, 0.36)', ease: 0.24 },
+  { width: 9, height: 3, color: 'rgba(201, 96, 74, 0.26)', ease: 0.18 },
+  { width: 6, height: 2.2, color: 'rgba(201, 96, 74, 0.15)', ease: 0.14 },
 ];
 
 export default function CustomCursor() {
@@ -64,7 +64,7 @@ export default function CustomCursor() {
     const loop = () => {
       pos.current.x += (target.current.x - pos.current.x) * 0.38;
       pos.current.y += (target.current.y - pos.current.y) * 0.38;
-      brush.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translateY(-8px) rotate(${angle.current}deg)`;
+      brush.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translate(-2px, -9px) rotate(${angle.current}deg)`;
 
       let prev = { x: pos.current.x, y: pos.current.y };
       trailPos.current.forEach((t, i) => {
@@ -72,7 +72,7 @@ export default function CustomCursor() {
         t.y += (prev.y - t.y) * TRAIL[i].ease;
         const el = trailRefs.current[i];
         if (el) {
-          el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0) translate(-50%, -50%)`;
+          el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0) translate(-50%, -50%) rotate(${angle.current}deg)`;
         }
         prev = t;
       });
@@ -106,8 +106,8 @@ export default function CustomCursor() {
             ref={(el) => {
               trailRefs.current[i] = el;
             }}
-            className="absolute left-0 top-0 rounded-full"
-            style={{ width: t.size, height: t.size, backgroundColor: t.color }}
+            className="absolute left-0 top-0 rounded-sm"
+            style={{ width: t.width, height: t.height, backgroundColor: t.color }}
           />
         ))}
       </div>
@@ -115,21 +115,31 @@ export default function CustomCursor() {
       <div
         ref={brushRef}
         className="custom-cursor pointer-events-none fixed left-0 top-0 z-[100] opacity-0"
-        style={{ transformOrigin: '0px 8px' }}
+        style={{ transformOrigin: '2px 9px' }}
         aria-hidden="true"
       >
         <svg
-          width="46"
-          height="16"
-          viewBox="0 0 46 16"
+          width="48"
+          height="18"
+          viewBox="0 0 48 18"
           fill="none"
           className="custom-cursor-brush"
         >
-          <rect x="12" y="6.5" width="32" height="3" rx="1.5" fill="#483f36" />
-          <rect x="7" y="4.5" width="7" height="7" rx="1" fill="#e9e6e2" />
-          <rect x="0" y="2" width="9" height="12" rx="1.5" fill="#b04a3a" />
-          <rect x="2.5" y="2" width="1" height="12" fill="#8f3a30" opacity="0.55" />
-          <rect x="5.5" y="2" width="1" height="12" fill="#8f3a30" opacity="0.55" />
+          {/* wooden handle */}
+          <rect x="14" y="7.5" width="34" height="3" rx="1.5" fill="#dcc9a3" />
+          <rect x="14" y="7.5" width="34" height="1" fill="#c9b083" opacity="0.6" />
+          {/* silver ferrule with crimp band + rivets */}
+          <rect x="8" y="4.5" width="8" height="9" rx="0.5" fill="#cac5bc" />
+          <rect x="8" y="8.5" width="8" height="1.2" fill="#948e82" />
+          <circle cx="12" cy="6.3" r="0.7" fill="#7a7568" />
+          <circle cx="12" cy="12.2" r="0.7" fill="#7a7568" />
+          {/* cream bristle base */}
+          <rect x="2" y="2.5" width="7" height="13" rx="1" fill="#f0e6d2" />
+          {/* paint-loaded jagged tip */}
+          <path
+            d="M3.5 2.5 L2 4.5 L3.5 6.5 L2 8.5 L3.5 10.5 L2 12.5 L3.5 15.5 L9 15.5 L9 2.5 Z"
+            fill="#b04a3a"
+          />
         </svg>
       </div>
     </>
