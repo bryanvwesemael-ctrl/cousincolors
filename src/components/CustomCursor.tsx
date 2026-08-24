@@ -125,9 +125,11 @@ export default function CustomCursor() {
           fill="none"
           className="custom-cursor-brush"
         >
-          <rect x="14" y="6.5" width="30" height="3" rx="1.5" fill="#483f36" />
-          <rect x="9" y="4.5" width="7" height="7" rx="1.5" fill="#e9e6e2" />
-          <path d="M0 8 L10 3.5 L10 12.5 Z" fill="#b04a3a" />
+          <rect x="12" y="6.5" width="32" height="3" rx="1.5" fill="#483f36" />
+          <rect x="7" y="4.5" width="7" height="7" rx="1" fill="#e9e6e2" />
+          <rect x="0" y="2" width="9" height="12" rx="1.5" fill="#b04a3a" />
+          <rect x="2.5" y="2" width="1" height="12" fill="#8f3a30" opacity="0.55" />
+          <rect x="5.5" y="2" width="1" height="12" fill="#8f3a30" opacity="0.55" />
         </svg>
       </div>
     </>
