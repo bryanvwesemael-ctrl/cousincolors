@@ -1,11 +1,13 @@
+import { useLocation } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import QuoteForm from '@/components/QuoteForm';
+import QuoteForm, { type QuoteFormInitial } from '@/components/QuoteForm';
 import ColorMoodPicker from '@/components/ColorMoodPicker';
 import { useReveal } from '@/hooks/useReveal';
 
 export default function QuotePage() {
   const { ref, isVisible } = useReveal();
+  const initial = (useLocation().state ?? undefined) as QuoteFormInitial | undefined;
 
   return (
     <>
@@ -35,7 +37,12 @@ export default function QuotePage() {
             <div className="mb-8">
               <ColorMoodPicker />
             </div>
-            <QuoteForm />
+            {initial?.projectDescription && (
+              <p className="mb-4 rounded-xl bg-sage-50 px-4 py-3 text-sm text-sage-800 ring-1 ring-sage-200">
+                Je keuzes uit de richtprijs-calculator staan al ingevuld. Vul aan waar nodig.
+              </p>
+            )}
+            <QuoteForm initial={initial} />
           </div>
         </div>
       </section>

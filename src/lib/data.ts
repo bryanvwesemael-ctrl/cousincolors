@@ -271,6 +271,22 @@ export const PROJECTS: ProjectData[] = [
   },
 ];
 
+// Voorbeeldprijzen voor de demo-calculator (€ per m², excl. btw).
+// Bij oplevering vult de schilder zijn eigen tarieven in — dit zijn geen echte tarieven.
+export const PRICE_EXAMPLES: Record<string, { min: number; max: number }> = {
+  binnenschilderwerken: { min: 20, max: 30 },
+  buitenschilderwerken: { min: 30, max: 45 },
+  behangwerken: { min: 25, max: 40 },
+  'schuren-en-lakken': { min: 40, max: 60 },
+};
+
+export const PRICE_FINISHES = [
+  { id: 'standaard', label: 'Standaard', hint: 'Twee lagen, matte afwerking', factor: 1 },
+  { id: 'premium', label: 'Premium', hint: 'Extra laag, slijtvaste of zijdeglans afwerking', factor: 1.2 },
+] as const;
+
+export const PRICE_REPAIR_FACTOR = 1.15;
+
 export const PROCESS_STEPS = [
   {
     number: '01',

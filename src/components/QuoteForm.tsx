@@ -28,18 +28,25 @@ const stepLabels = [
   'Contact',
 ];
 
-export default function QuoteForm() {
+export interface QuoteFormInitial {
+  serviceType?: string;
+  projectDescription?: string;
+}
+
+export default function QuoteForm({ initial }: { initial?: QuoteFormInitial }) {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const [serviceType, setServiceType] = useState('');
+  const [serviceType, setServiceType] = useState(
+    initial?.serviceType && SERVICE_OPTIONS.includes(initial.serviceType) ? initial.serviceType : ''
+  );
   const [propertyType, setPropertyType] = useState('');
   const [municipality, setMunicipality] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [startTime, setStartTime] = useState('');
-  const [projectDescription, setProjectDescription] = useState('');
+  const [projectDescription, setProjectDescription] = useState(initial?.projectDescription ?? '');
   const [photos, setPhotos] = useState<File[]>([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

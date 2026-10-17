@@ -150,3 +150,46 @@
 .custom-cursor.is-down .custom-cursor-brush {
   transform: scale(0.85);
 }
+
+/* Price calculator range slider */
+.price-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    theme('colors.clay.600') 0%,
+    theme('colors.clay.600') var(--fill, 0%),
+    theme('colors.cream.200') var(--fill, 0%),
+    theme('colors.cream.200') 100%
+  );
+  touch-action: pan-y;
+}
+
+.price-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: theme('colors.white');
+  border: 2px solid theme('colors.clay.600');
+  box-shadow: 0 2px 6px rgb(28 25 23 / 0.2);
+  cursor: grab;
+}
+
+.price-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: theme('colors.white');
+  border: 2px solid theme('colors.clay.600');
+  box-shadow: 0 2px 6px rgb(28 25 23 / 0.2);
+  cursor: grab;
+}
+
+.price-range:focus-visible {
+  outline: 2px solid theme('colors.clay.600');
+  outline-offset: 4px;
+}

@@ -2,6 +2,7 @@ import SEO from '@/components/SEO';
 import Hero from '@/components/sections/Hero';
 import TrustBar from '@/components/sections/TrustBar';
 import ServicesSection from '@/components/sections/ServicesSection';
+import PriceCalculator from '@/components/sections/PriceCalculator';
 import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import ProcessSection from '@/components/sections/ProcessSection';
 import AboutPreview from '@/components/sections/AboutPreview';
@@ -38,6 +39,7 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <ServicesSection />
+      <PriceCalculator />
       <BeforeAfterSection />
       <ProcessSection />
       <AboutPreview />
